@@ -20,12 +20,12 @@ async function getDailyQuote() {
 
 export default async function Page() {
   const quote = await getDailyQuote();
-  
+
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
       <p className="font-bold text-primary">Quote of the Day</p>
       <Suspense fallback={<p>Loading quote..</p>}>
-        <blockquote className="mt-1 border-l-2 border-primary pl-6 italic text-center text-xl">{quote}</blockquote>
+        <blockquote className="mt-6 border-l-2 border-primary pl-6 italic text-center text-xl">{quote}</blockquote>
       </Suspense>
     </main>
   );
