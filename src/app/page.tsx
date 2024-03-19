@@ -1,5 +1,4 @@
 
-import { getRandomHeadline } from "@/lib/headlines";
 import { Suspense } from "react";
 
 export type Quote = {
@@ -21,13 +20,12 @@ async function getDailyQuote() {
 
 export default async function Page() {
   const quote = await getDailyQuote();
-  const headline = getRandomHeadline();
-
+  
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
-      <h1 className="text-6xl font-bold text-center decoration-primary ">{headline}</h1>
+      <p className="font-bold text-primary">Quote of the Day</p>
       <Suspense fallback={<p>Loading quote..</p>}>
-        <blockquote className="mt-10 border-l-2 border-primary pl-6 italic text-center">{quote}</blockquote>
+        <blockquote className="mt-1 border-l-2 border-primary pl-6 italic text-center text-xl">{quote}</blockquote>
       </Suspense>
     </main>
   );
