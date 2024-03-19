@@ -26,20 +26,6 @@ To get started with Motivate, follow these steps:
 
 1. Clone the repository: `git clone https://github.com/your-username/motivate.git`
 2. Install the required dependencies: `npm install`
-3. Set up the database connection: Update the MongoDB connection string in the configuration file.
-4. Start the server: `npm start`
+4. Start the server: `npm run dev`
 5. Access the website: Open your web browser and navigate to `http://localhost:3000`
 
-## Contribution Guidelines
-
-If you would like to contribute to Motivate, please follow these guidelines:
-
-- Fork the repository and create a new branch for your feature or bug fix.
-- Make your changes and ensure that the code passes all tests.
-- Submit a pull request describing your changes and the problem they solve.
-
-We welcome contributions from developers of all skill levels. Together, let's inspire and motivate others to achieve greatness!
-
-## License
-
-Motivate is released under the [MIT License](https://opensource.org/licenses/MIT). Feel free to use, modify, and distribute the code for personal or commercial purposes.
