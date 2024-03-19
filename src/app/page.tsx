@@ -15,15 +15,13 @@ async function getDailyQuote() {
     return data[0].q;
   } catch (error) {
     console.log(error);
-    return "An error occured";
+    throw new Error("Failed to fetch daily quote");
   }
 }
 
 export default async function Page() {
   const quote = await getDailyQuote();
   const headline = getRandomHeadline();
-
-  console.log(quote);
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
