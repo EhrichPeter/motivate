@@ -21,14 +21,17 @@ export default async function Page() {
   const quote = await getDailyQuote();
 
   return (
-    <main className="flex min-h-screen flex-col">
-      <div className="my-auto border border-primary rounded-xl text-center m-10 md:m-24 p-5">
-        <blockquote className="italic text-xl">
-          &quot;{quote.q}&quot;
-        </blockquote>
-        -<cite>{quote.a}</cite>
+    <main className="flex min-h-screen flex-col items-center">
+      <div id="content" className="my-auto">
+        <div className="border border-primary rounded-xl text-center m-10 md:m-24 p-5">
+          <blockquote className="italic text-xl">
+            &quot;{quote.q}&quot;
+          </blockquote>
+          -<cite>{quote.a}</cite>
+        </div>
       </div>
-      <footer className="text-center text-sm text-gray-500 m-10 md:m-24">
+
+      <footer className="mt-auto text-center text-sm text-gray-500 m-10 md:m-24">
         <p>
           Inspirational quotes provided by{" "}
           <a className="underline" href="https://zenquotes.io/" target="_blank">
