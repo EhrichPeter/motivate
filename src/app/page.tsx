@@ -31,7 +31,7 @@ export default async function Page() {
       <footer className="text-center text-sm text-gray-500 m-10 md:m-24">
         <p>
           Inspirational quotes provided by{" "}
-          <a href="https://zenquotes.io/" target="_blank">
+          <a className="underline" href="https://zenquotes.io/" target="_blank">
             ZenQuotes API
           </a>
         </p>
