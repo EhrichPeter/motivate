@@ -24,7 +24,7 @@ export function PhotoCarousel(props: { photos: UnsplashPhoto[] }) {
                 alt={photo.description}
                 width={200}
                 height={200}
-                className="rounded-full shadow-xl"
+                className="rounded-full shadow-md"
               />
             </div>
           </CarouselItem>
