@@ -9,19 +9,19 @@ export default async function Page() {
 
   return (
     <main className="flex min-h-screen flex-col items-center">
-      <div id="content" className="my-auto">
+      <div id="content" className="my-auto m-10">
         <div className="text-center">
           <blockquote className="italic text-2xl font-bold">
             &quot;{quote.q}&quot;
           </blockquote>
           -<cite>{quote.a}</cite>
         </div>
-        <div className="flex justify-center mt-8"> {/* Add margin top */}
+        <div className="flex justify-center m-10"> 
           <Image
             src={photo.urls.regular}
             alt={photo.description}
-            width={300}
-            height={300}
+            width={200}
+            height={200}
             className="rounded-full shadow-xl"
           />
         </div>
