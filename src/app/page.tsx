@@ -1,11 +1,11 @@
 import { getDailyQuote } from "@/server/quote";
 import { getUnsplashPhoto } from "@/server/unsplash";
-import Image from "next/image";
+import { PhotoCarousel } from "./_components/photos";
 
 export default async function Page() {
   const HOUR = 60 * 60;
   const quote = await getDailyQuote(HOUR);
-  const photo = await getUnsplashPhoto(quote.q, HOUR);
+  const photos = await getUnsplashPhoto(quote.q, HOUR, 1, 10);
 
   return (
     <main className="flex min-h-screen flex-col items-center">
@@ -17,31 +17,9 @@ export default async function Page() {
           -<cite>{quote.a}</cite>
         </div>
         <div className="flex justify-center m-10"> 
-          <Image
-            src={photo.urls.regular}
-            alt={photo.description}
-            width={200}
-            height={200}
-            className="rounded-full shadow-xl"
-          />
+          <PhotoCarousel photos={photos} />
         </div>
       </div>
-
-      <footer className="mt-auto text-center text-sm text-gray-500 m-10 md:m-24">
-        <p>
-          Inspirational quotes provided by{" "}
-          <a className="underline" href="https://zenquotes.io/" target="_blank">
-            ZenQuotes API
-          </a>
-        </p>
-        <p>
-          Made with{" "}
-          <span role="img" aria-label="heart">
-            ❤️
-          </span>{" "}
-          by Peter Ehrich
-        </p>
-      </footer>
     </main>
   );
 }
