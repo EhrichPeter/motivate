@@ -1,33 +1,29 @@
-export type Quote = {
-  q: string;
-  a: string;
-  h: string;
-};
-
-async function getDailyQuote() {
-  try {
-    const res = await fetch("https://zenquotes.io/api/today", {
-      next: { revalidate: 60 * 60 * 1 },
-    });
-    const data: Quote[] = await res.json();
-    return data[0];
-  } catch (error) {
-    console.log(error);
-    throw new Error("Failed to fetch daily quote");
-  }
-}
+import { getDailyQuote } from "@/server/quote";
+import { getUnsplashPhoto } from "@/server/unsplash";
+import Image from "next/image";
 
 export default async function Page() {
-  const quote = await getDailyQuote();
+  const HOUR = 60 * 60;
+  const quote = await getDailyQuote(HOUR);
+  const photo = await getUnsplashPhoto(quote.q, HOUR);
 
   return (
     <main className="flex min-h-screen flex-col items-center">
       <div id="content" className="my-auto">
-        <div className="border border-primary rounded-xl text-center m-10 md:m-24 p-5">
-          <blockquote className="italic text-xl">
+        <div className="text-center">
+          <blockquote className="italic text-2xl font-bold">
             &quot;{quote.q}&quot;
           </blockquote>
           -<cite>{quote.a}</cite>
+        </div>
+        <div className="flex justify-center mt-8"> {/* Add margin top */}
+          <Image
+            src={photo.urls.regular}
+            alt={photo.description}
+            width={300}
+            height={300}
+            className="rounded-full shadow-xl"
+          />
         </div>
       </div>
 
