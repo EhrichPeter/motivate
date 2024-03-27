@@ -10,8 +10,10 @@ import {
 } from "@/components/ui/carousel";
 import { UnsplashPhoto } from "@/server/unsplash";
 
-export function PhotoCarousel(props: { photos: UnsplashPhoto[] }) {
-  const { photos } = props;
+export function PhotoCarousel(
+  props: { photos: UnsplashPhoto[]; photoSize: number } 
+) {
+  const { photos, photoSize } = props;
 
   return (
     <Carousel className="max-w-xs">
@@ -22,16 +24,20 @@ export function PhotoCarousel(props: { photos: UnsplashPhoto[] }) {
               <Image
                 src={photo.urls.regular}
                 alt={photo.description}
-                width={200}
-                height={200}
+                width={photoSize}
+                height={photoSize}
                 className="rounded-full shadow-md"
               />
             </div>
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      {photos.length > 1 && (
+        <>
+          <CarouselPrevious />  
+          <CarouselNext />
+        </>
+      )}
     </Carousel>
   );
 }
