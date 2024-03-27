@@ -14,7 +14,7 @@ export default async function Home() {
       <Header />
 
       <div className="my-20 px-8">
-        <Tabs defaultValue="daily" className="w-[400px]">
+        <Tabs defaultValue="daily" className="w-full">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="daily">Daily Quote</TabsTrigger>
             <TabsTrigger value="bookmarks">Bookmarks</TabsTrigger>
