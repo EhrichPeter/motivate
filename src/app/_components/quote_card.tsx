@@ -22,7 +22,7 @@ const QuoteCard = (props: QuoteCardProps) => {
   const { quote, photos } = props;
 
   return (
-    <Card className="w-[350px] text-center">
+    <Card className="text-center">
       <CardHeader>
         <CardTitle>Quote of the day</CardTitle>
         <CardDescription>Your daily dose of inspiration</CardDescription>
@@ -44,6 +44,6 @@ const QuoteCard = (props: QuoteCardProps) => {
       </CardFooter>
     </Card>
   );
-};
+  };
 
-export default QuoteCard;
+  export default QuoteCard;
