@@ -1,10 +1,6 @@
 import { getDailyQuote } from "@/server/quote";
 import { getUnsplashPhoto } from "@/server/unsplash";
 import { PhotoCarousel } from "./_components/photos";
-import { ModeToggle } from "@/components/ui/mode-toggle";
-import { QuoteIcon } from "lucide-react";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
 import Header from "./_components/header";
 
 export default async function Page() {

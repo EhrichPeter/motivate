@@ -6,7 +6,7 @@ import { ModeToggle } from "@/components/ui/mode-toggle";
 
 const Header: React.FC = () => {
   return (
-    <header className="fixed top-0 left-0 w-full z-10 h-12 border">
+    <header className="fixed top-0 left-0 w-full z-10 h-12 border-b">
       <div className="flex container h-full items-center justify-between">
         <div className="flex items-center gap-5">
           <Link href="/">
