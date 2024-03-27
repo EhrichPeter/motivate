@@ -20,7 +20,7 @@ const Header: React.FC = () => {
         </div>
         <div className="flex items-center gap-2">
           <Link
-            href="https://github.com/EhrichPeter/motivate"
+            href="https://github.com/EhrichPeter/quote"
             target="_blank"
           >
             <GitHubLogoIcon height={24} width={24} />
