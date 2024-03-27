@@ -16,16 +16,18 @@ import { Separator } from "@/components/ui/separator";
 interface QuoteCardProps {
   quote: Quote;
   photos: UnsplashPhoto[];
+  title: string;
+  description: string;
 }
 
 const QuoteCard = (props: QuoteCardProps) => {
-  const { quote, photos } = props;
+  const { quote, photos, title, description } = props;
 
   return (
     <Card className="text-center">
       <CardHeader>
-        <CardTitle>Quote of the day</CardTitle>
-        <CardDescription>Your daily dose of inspiration</CardDescription>
+        <CardTitle>{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
         <Separator />
       </CardHeader>
       <CardContent>
