@@ -12,7 +12,7 @@ export default async function Home() {
     <main className="flex min-h-screen flex-col items-center">
       <Header />
 
-      <div className="my-auto p-8">
+      <div className="mt-20 px-8">
         <QuoteCard quote={quote} photos={photos} />
       </div>
     </main>
