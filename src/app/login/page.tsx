@@ -37,7 +37,7 @@ export default function Login() {
           />
           <Button formAction={loginWithOtp}>Sign In with Email</Button>
         </form>
-        <div className="flex items-center justify-between">
+        {/* <div className="flex items-center justify-between">
           <Separator className="w-1/4" />
           <p className="mx-2 text-sm text-gray-500 whitespace-nowrap">
             OR CONTINUE WITH
@@ -45,13 +45,13 @@ export default function Login() {
           <Separator className="w-1/4" />
         </div>
         <form className="flex flex-col gap-2">
-          {/* <Button variant={"outline"}>
+          <Button variant={"outline"}>
             <FaGoogle />
-          </Button> */}
+          </Button>
           <Button variant={"outline"} formAction={loginWithGithub}>
             <FaGithub />
           </Button>
-        </form>
+        </form> */}
       </div>
     </main>
   );
