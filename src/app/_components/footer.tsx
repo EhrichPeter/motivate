@@ -3,7 +3,7 @@ import Link from "next/link";
 const Footer = () => {
   return (
     <footer className="p-4 mt-auto text-center">
-      <p>
+      <p className="text-xs">
         Built by{" "}
         <Link
           href="https://github.com/EhrichPeter"
