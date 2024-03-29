@@ -49,4 +49,5 @@ export const logout = publicAction({}, async () => {
 
   revalidatePath("/", "layout");
   redirect("/");
+  //hi
 });
