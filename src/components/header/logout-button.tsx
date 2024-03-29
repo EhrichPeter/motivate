@@ -3,17 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/components/ui/use-toast";
 import { logout } from "@/server/auth/auth";
-import { type User } from "@supabase/supabase-js";
 import { useAction } from "next-safe-action/hooks";
-import Link from "next/link";
 import { useForm } from "react-hook-form";
 
-export type AuthHandlerButtonProps = {
-  user: User | null;
-};
-
-export const AuthHandlerButton = (props: AuthHandlerButtonProps) => {
-  const { user } = props;
+export const LogoutButton = () => {
   const { toast } = useToast();
   const { handleSubmit } = useForm();
 
@@ -39,24 +32,15 @@ export const AuthHandlerButton = (props: AuthHandlerButtonProps) => {
   });
 
   return (
-    <>
-      {user ? (
-        <form onSubmit={onSubmit}>
-          <Button
-            variant={"outline"}
-            formAction={logout}
-            disabled={status === "executing"}
-          >
-            Log out
-          </Button>
-        </form>
-      ) : (
-        <>
-          <Button>
-            <Link href="/login">Log in</Link>
-          </Button>
-        </>
-      )}
-    </>
+    <form onSubmit={onSubmit} className="w-full">
+      <Button
+        variant={"destructive"}
+        formAction={logout}
+        disabled={status === "executing"}
+        className="w-full"
+      >
+        Log out
+      </Button>
+    </form>
   );
 };
