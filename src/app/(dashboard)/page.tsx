@@ -1,5 +1,5 @@
-import DailyCountdownTimer from "@/components/daily-quote/countdown";
-import QuoteCard from "@/components/daily-quote/quote_card";
+import QuoteCard from "@/components/daily-quote/quote-card";
+
 import { getDailyQuote } from "@/server/quote/quote";
 import { getUnsplashPhoto } from "@/server/unsplash/unsplash";
 
