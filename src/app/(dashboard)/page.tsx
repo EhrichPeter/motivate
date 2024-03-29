@@ -1,3 +1,4 @@
+import DailyCountdownTimer from "@/components/daily-quote/countdown";
 import QuoteCard from "@/components/daily-quote/quote_card";
 import { getDailyQuote } from "@/server/quote/quote";
 import { getUnsplashPhoto } from "@/server/unsplash/unsplash";
@@ -14,6 +15,11 @@ export default async function DailyQuote() {
         <p className="text-balance text-muted-foreground">
           Your daily dose of inspiration.
         </p>
+        {/* <DailyCountdownTimer
+          targetHour={0}
+          targetMinute={0}
+          timeZone="America/New_York"
+        /> */}
       </div>
 
       <QuoteCard quote={quote} photo={photos[0]} />
