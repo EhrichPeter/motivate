@@ -9,9 +9,9 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { PhotoCarousel } from "./photos";
-import { Quote } from "@/server/quote";
-import { UnsplashPhoto } from "@/server/unsplash";
 import { Separator } from "@/components/ui/separator";
+import { UnsplashPhoto } from "@/server/unsplash/models";
+import { Quote } from "@/server/quote/models";
 
 interface QuoteCardProps {
   quote: Quote;
@@ -46,6 +46,6 @@ const QuoteCard = (props: QuoteCardProps) => {
       </CardFooter>
     </Card>
   );
-  };
+};
 
-  export default QuoteCard;
+export default QuoteCard;

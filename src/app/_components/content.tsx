@@ -4,8 +4,8 @@ import { RocketIcon } from "lucide-react";
 import React from "react";
 import QuoteCard from "./content/quote_card";
 import { createClient } from "@/utils/supabase/server";
-import { getDailyQuote } from "@/server/quote";
-import { getUnsplashPhoto } from "@/server/unsplash";
+import { getDailyQuote } from "@/server/quote/quote";
+import { getUnsplashPhoto } from "@/server/unsplash/unsplash";
 
 export const Content = async () => {
   const supabase = createClient();

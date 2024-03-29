@@ -1,12 +1,10 @@
 import React from "react";
 import Link from "next/link";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { ModeToggle } from "@/components/ui/mode-toggle";
 import Logo from "./content/logo";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/utils/supabase/server";
-import { logout } from "@/server/auth";
-import { Ghost } from "lucide-react";
+import { logout } from "@/server/auth/auth";
 
 const Header = async () => {
   const supabase = createClient();

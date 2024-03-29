@@ -1,8 +1,4 @@
-export type Quote = {
-  q: string;
-  a: string;
-  h: string;
-};
+import { Quote } from "./models";
 
 export async function getDailyQuote(revalidate: number): Promise<Quote> {
   try {

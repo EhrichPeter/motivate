@@ -1,11 +1,18 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
-import { UnsplashPhoto } from '@/server/unsplash';
-import { decode } from 'blurhash';
-import Image from 'next/image';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
+import { UnsplashPhoto } from "@/server/unsplash/models";
+import { decode } from "blurhash";
+import Image from "next/image";
 
-export function PhotoCarousel(
-  props: { photos: UnsplashPhoto[]; photoSize: number } 
-) {
+export function PhotoCarousel(props: {
+  photos: UnsplashPhoto[];
+  photoSize: number;
+}) {
   const { photos, photoSize } = props;
 
   return (
@@ -32,7 +39,7 @@ export function PhotoCarousel(
       </CarouselContent>
       {photos.length > 1 && (
         <>
-          <CarouselPrevious />  
+          <CarouselPrevious />
           <CarouselNext />
         </>
       )}
