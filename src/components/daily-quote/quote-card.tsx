@@ -48,7 +48,7 @@ const QuoteCard = (props: Quote) => {
         alt={picture_alt}
         width={500}
         height={100}
-        className="absolute inset-0 object-cover w-full h-full opacity-40 rounded-xl"
+        className="absolute inset-0 object-cover w-full h-full opacity-50 rounded-xl"
       />
 
       <div className="flex flex-col p-14">

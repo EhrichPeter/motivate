@@ -3,9 +3,11 @@
 import { QuoteIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Badge } from "../ui/badge";
 
-const Links = () => {
+const Links = (props: { number_of_bookmarks: number }) => {
   const pathname = usePathname();
+  const { number_of_bookmarks } = props;
 
   return (
     <>
@@ -18,22 +20,23 @@ const Links = () => {
       </Link>
       <Link
         href="/"
-        className={`transition-colors hover:text-foreground whitespace-nowrap ${
-          pathname === "/" ? "text-foreground" : "text-muted-foreground"
-        }`}
+        className={`transition-colors hover:text-foreground whitespace-nowrap ${pathname === "/" ? "text-foreground" : "text-muted-foreground"
+          }`}
       >
         Daily Quote
       </Link>
-      <Link
-        href="/bookmarks"
-        className={`transition-colors hover:text-foreground whitespace-nowrap ${
-          pathname === "/bookmarks"
+      <div className="flex gap-1 items-center">
+        <Link
+          href="/bookmarks"
+          className={`transition-colors hover:text-foreground whitespace-nowrap ${pathname === "/bookmarks"
             ? "text-foreground"
             : "text-muted-foreground"
-        }`}
-      >
-        Bookmarks
-      </Link>
+            }`}
+        >
+          Bookmarks
+        </Link>
+        <Badge className="m-1">{number_of_bookmarks}</Badge>
+      </div>
     </>
   );
 };
