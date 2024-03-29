@@ -39,15 +39,17 @@ export const loginWithOtp = publicAction(
   }
 );
 
-export const logout = publicAction({}, async () => {
+export const logout = async () => {
   const supabase = createClient();
+
+  console.log("hey");
   const { error } = await supabase.auth.signOut();
+
+  console.log(error);
 
   if (error) {
     throw new Error(error.message);
   }
 
   revalidatePath("/", "layout");
-  redirect("/");
-  //hi
-});
+};

@@ -4,7 +4,6 @@ import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { CircleUser } from "lucide-react";
 import { Button } from "../ui/button";
 import { logout } from "@/server/auth/auth";
-import { useAction } from "next-safe-action/hooks";
 import { useToast } from "../ui/use-toast";
 import {
   DropdownMenu,
@@ -23,22 +22,22 @@ export const UserDropdown = (props: UserDropdownProps) => {
   const { email } = props;
   const { toast } = useToast();
 
-  const { execute, status } = useAction(logout, {
-    onSuccess: () => {
+  const handleLogout = async () => {
+    try {
+      await logout();
       toast({
         variant: "default",
-        title: "Logged out",
-        description: "You have been successfully logged out.",
+        title: "Logout successful!",
+        description: "You have been logged out.",
       });
-    },
-    onError: (error) => {
+    } catch (error) {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: `${error.serverError}`,
+        description: `${error}`,
       });
-    },
-  });
+    }
+  };
 
   return (
     <DropdownMenu>
@@ -58,9 +57,7 @@ export const UserDropdown = (props: UserDropdownProps) => {
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem>Support</DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={execute} disabled={status === "executing"}>
-          Logout
-        </DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>Logout</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
