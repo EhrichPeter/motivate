@@ -82,10 +82,7 @@ export default function Login() {
             placeholder="Email"
             className={`${errors.email ? "border-red-500" : ""}`}
           />
-          <Button
-            type="submit"
-            disabled={status === "executing" ? true : false}
-          >
+          <Button type="submit" disabled={status === "executing"}>
             Sign In with Email
           </Button>
         </form>

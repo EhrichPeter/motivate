@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/utils/supabase/server";
 import { publicAction } from "../safe-action";
 import { loginWithOtpFormSchema } from "./models";
+import { redirect } from "next/navigation";
 
 const getURL = () => {
   let url =
@@ -38,7 +39,7 @@ export const loginWithOtp = publicAction(
   }
 );
 
-export const logout = async () => {
+export const logout = publicAction({}, async () => {
   const supabase = createClient();
   const { error } = await supabase.auth.signOut();
 
@@ -47,4 +48,5 @@ export const logout = async () => {
   }
 
   revalidatePath("/", "layout");
-};
+  redirect("/");
+});
