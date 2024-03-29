@@ -1,6 +1,8 @@
 import { UnsplashPhoto } from "@/server/unsplash/models";
 import { Quote } from "@/server/quote/models";
 import Image from "next/image";
+import { Button } from "../ui/button";
+import { Bookmark } from "lucide-react";
 
 interface QuoteCardProps {
   quote: Quote;
@@ -29,9 +31,9 @@ const QuoteCard = (props: QuoteCardProps) => {
         -<cite>{quote.a}</cite>
       </div>
 
-      {/* <Button variant="ghost">
+      <Button variant="ghost" className="absolute bottom-2 right-1">
         <Bookmark />
-      </Button> */}
+      </Button>
     </div>
   );
 };
