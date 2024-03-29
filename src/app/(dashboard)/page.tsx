@@ -8,7 +8,7 @@ export default async function DailyQuote() {
   const photos = await getUnsplashPhoto(quote.q, HOUR, 1, 1);
 
   return (
-    <div className="w-full md:w-1/2">
+    <div className="w-full md:w-1/2 ">
       <QuoteCard
         quote={quote}
         photos={photos}
