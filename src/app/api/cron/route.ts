@@ -1,4 +1,4 @@
-import { cronInsertOne } from '@/server/quotes/quotes';
+import { cronCreateOne } from '@/server/quotes/quotes';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
@@ -9,6 +9,6 @@ export async function GET(request: NextRequest) {
   ) {
     return new NextResponse('unauthorized', { status: 401 });
   }
-  await cronInsertOne();
+  await cronCreateOne();
   return NextResponse.json({ ok: true });
 }

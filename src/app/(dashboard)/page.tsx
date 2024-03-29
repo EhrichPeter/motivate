@@ -1,5 +1,5 @@
 import QuoteCard from "@/components/daily-quote/quote-card";
-import { findOneLatest } from "@/server/quotes/quotes";
+import { findOneLatest } from "@/server/quotes/queries";
 
 
 export default async function DailyQuote() {

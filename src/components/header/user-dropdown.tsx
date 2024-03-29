@@ -1,10 +1,9 @@
 "use client";
 
+import { logout } from "@/server/auth/actions";
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { CircleUser } from "lucide-react";
 import { Button } from "../ui/button";
-import { logout } from "@/server/auth/auth";
-import { useToast } from "../ui/use-toast";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { useToast } from "../ui/use-toast";
 
 export type UserDropdownProps = {
   email: string | undefined;

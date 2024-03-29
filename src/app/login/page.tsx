@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
-import { loginWithOtp } from "@/server/auth/auth";
+import { loginWithOtp } from "@/server/auth/actions";
 import { loginWithOtpFormSchema } from "@/server/auth/models";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ChevronLeftIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
+import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { ChevronLeftIcon } from "lucide-react";
-import Link from "next/link";
 
 type loginFormType = z.infer<typeof loginWithOtpFormSchema>;
 
