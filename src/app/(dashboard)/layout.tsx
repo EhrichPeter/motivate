@@ -10,7 +10,7 @@ export default function Layout({ children }: LayoutProps): JSX.Element {
   return (
     <>
       <Header />
-      <main className="flex min-h-screen flex-col items-center container">
+      <main className="flex min-h-screen flex-col items-center container pt-4">
         {children}
       </main>
       <Footer />

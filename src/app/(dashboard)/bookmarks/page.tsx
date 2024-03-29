@@ -8,7 +8,7 @@ export default async function Bookmarks() {
   const { user } = (await supabase.auth.getUser()).data;
 
   return (
-    <div className="pt-4">
+    <div>
       {user ? (
         <Alert>
           <RocketIcon className="h-4 w-4" />
