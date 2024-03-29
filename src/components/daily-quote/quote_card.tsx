@@ -1,50 +1,38 @@
-import { Bookmark } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from "@/components/ui/card";
-import { PhotoCarousel } from "./photos";
-import { Separator } from "@/components/ui/separator";
 import { UnsplashPhoto } from "@/server/unsplash/models";
 import { Quote } from "@/server/quote/models";
+import Image from "next/image";
 
 interface QuoteCardProps {
   quote: Quote;
-  photos: UnsplashPhoto[];
-  title: string;
-  description: string;
+  photo: UnsplashPhoto;
 }
 
 const QuoteCard = (props: QuoteCardProps) => {
-  const { quote, photos, title, description } = props;
+  const { quote, photo } = props;
 
   return (
-    <Card className="text-center">
-      <CardHeader>
-        <CardTitle>{title}</CardTitle>
-        <CardDescription>{description}</CardDescription>
-        <Separator />
-      </CardHeader>
-      <CardContent>
+    <div className="text-center relative rounded-xl w-full md:w-1/2">
+      <Image
+        src={photo.urls.regular}
+        alt={photo.description}
+        width={500}
+        height={100}
+        className="absolute inset-0 object-cover w-full h-full opacity-30 rounded-xl"
+        blurDataURL={`data:image/png;base64,${photo.blur_hash}`}
+        placeholder="blur"
+      />
+
+      <div className="flex flex-col p-14">
         <blockquote className="italic text-xl font-bold">
           &quot;{quote.q}&quot;
         </blockquote>
         -<cite>{quote.a}</cite>
-        <div className="flex justify-center items-center pt-5">
-          <PhotoCarousel photos={photos} photoSize={150} />
-        </div>
-      </CardContent>
-      <CardFooter className="flex justify-end">
-        <Button variant="outline">
-          <Bookmark />
-        </Button>
-      </CardFooter>
-    </Card>
+      </div>
+
+      {/* <Button variant="ghost">
+        <Bookmark />
+      </Button> */}
+    </div>
   );
 };
 
