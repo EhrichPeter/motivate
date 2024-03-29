@@ -1,12 +1,13 @@
 import QuoteCard from "@/components/daily-quote/quote-card";
+import { findOneLatest } from "@/server/quotes/quotes";
 
-import { getDailyQuote } from "@/server/quote/quote";
-import { getUnsplashPhoto } from "@/server/unsplash/unsplash";
 
 export default async function DailyQuote() {
-  const HOUR = 60 * 60;
-  const quote = await getDailyQuote(HOUR);
-  const photos = await getUnsplashPhoto(quote.q, HOUR, 1, 1);
+  const quote = await findOneLatest();
+
+  if (!quote) {
+    return <h1>No Quote found</h1>
+  }
 
   return (
     <div className="flex flex-col items-center gap-8 pt-6 w-full">
@@ -15,14 +16,9 @@ export default async function DailyQuote() {
         <p className="text-balance text-muted-foreground">
           Your daily dose of inspiration.
         </p>
-        {/* <DailyCountdownTimer
-          targetHour={0}
-          targetMinute={0}
-          timeZone="America/New_York"
-        /> */}
       </div>
 
-      <QuoteCard quote={quote} photo={photos[0]} />
+      <QuoteCard {...quote} />
     </div>
   );
 }

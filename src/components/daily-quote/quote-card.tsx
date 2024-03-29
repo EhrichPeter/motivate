@@ -1,34 +1,26 @@
-import { UnsplashPhoto } from "@/server/unsplash/models";
-import { Quote } from "@/server/quote/models";
+import { Quote } from "@/server/quotes/models";
+import { Bookmark } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { Bookmark } from "lucide-react";
 
-interface QuoteCardProps {
-  quote: Quote;
-  photo: UnsplashPhoto;
-}
-
-const QuoteCard = (props: QuoteCardProps) => {
-  const { quote, photo } = props;
+const QuoteCard = (props: Quote) => {
+  const { picture_alt, picture_link, author, quote } = props;
 
   return (
-    <div className="text-center relative rounded-xl w-full md:w-1/2">
+    <div className="text-center relative rounded-xl w-full md:w-1/2 border shadow-lg">
       <Image
-        src={photo.urls.regular}
-        alt={photo.description}
+        src={picture_link}
+        alt={picture_alt}
         width={500}
         height={100}
         className="absolute inset-0 object-cover w-full h-full opacity-30 rounded-xl"
-        blurDataURL={`data:image/png;base64,${photo.blur_hash}`}
-        placeholder="blur"
       />
 
       <div className="flex flex-col p-14">
         <blockquote className="italic text-xl font-bold">
-          &quot;{quote.q}&quot;
+          &quot;{quote}&quot;
         </blockquote>
-        -<cite>{quote.a}</cite>
+        -<cite>{author}</cite>
       </div>
 
       <Button variant="ghost" className="absolute bottom-2 right-1">
