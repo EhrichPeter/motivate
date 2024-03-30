@@ -1,13 +1,13 @@
 import { createClient } from '@/utils/supabase/server';
 import { Quote } from './models';
 
-const supabase = createClient();
-
 export async function findOneLatest(): Promise<Quote | null> {
+  const supabase = createClient();
   const { data, error } = await supabase
     .from('quotes')
     .select('*')
     .order('created_at', { ascending: false })
+    .limit(1)
     .single();
 
   if (error) {
@@ -20,6 +20,7 @@ export async function findOneLatest(): Promise<Quote | null> {
 export async function findManyWithUserBookMarks(
   user_id: string
 ): Promise<Quote[] | null> {
+  const supabase = createClient();
   const { data, error } = await supabase
     .from('bookmarks')
     .select(`quotes (*)`)

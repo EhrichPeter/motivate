@@ -10,6 +10,8 @@ export const toggleBookmark = authAction(
   async ({ quote_id }, { user_id }) => {
     const supabase = createClient();
 
+    let new_state: boolean;
+
     const { data } = await supabase
       .from('bookmarks')
       .select('*')
@@ -23,10 +25,14 @@ export const toggleBookmark = authAction(
         .delete()
         .eq('quote_id', quote_id)
         .eq('user_id', user_id);
+
+      new_state = false;
     } else {
       await supabase.from('bookmarks').insert({ user_id, quote_id });
+      new_state = true;
     }
 
     revalidatePath('/');
+    return new_state;
   }
 );

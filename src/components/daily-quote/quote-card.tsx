@@ -20,12 +20,20 @@ const QuoteCard = (props: Quote) => {
 
   const { handleSubmit } = useForm<toggleBookMarkType>({ resolver: zodResolver(toggleBookMarkSchema), defaultValues: { quote_id: id } });
   const { execute } = useAction(toggleBookmark, {
-    onSuccess: () => {
-      toast({
-        variant: "default",
-        title: "Bookmark set!",
-        description: "You have bookmarked this quote.",
-      });
+    onSuccess: (new_is_bookmarked) => {
+      if (new_is_bookmarked) {
+        toast({
+          variant: "default",
+          title: "Bookmark set!",
+          description: "You have bookmarked this quote.",
+        });
+      } else {
+        toast({
+          variant: "default",
+          title: "Bookmark removed!",
+          description: "You have removed the bookmark from this quote.",
+        });
+      }
     },
     onError: (error) => {
       toast({
