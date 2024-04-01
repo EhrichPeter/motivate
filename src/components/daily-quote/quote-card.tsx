@@ -3,7 +3,7 @@
 import { toggleBookmark } from "@/server/bookmarks/actions";
 import { QuoteWithBookMark } from "@/server/quotes/models";
 import { BookmarkCheckIcon, BookmarkIcon } from "lucide-react";
-import { useAction } from "next-safe-action/hooks";
+import { useOptimisticAction } from "next-safe-action/hooks";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
@@ -13,7 +13,7 @@ const QuoteCard = (props: QuoteWithBookMark) => {
   const { id, picture_alt, picture_link, author, quote, bookmarked } = props;
   const { toast } = useToast();
 
-  const { execute, status } = useAction(toggleBookmark, {
+  const { execute, status, optimisticData } = useOptimisticAction(toggleBookmark, bookmarked, () => { return !bookmarked }, {
     onSuccess: (new_is_bookmarked) => {
       if (new_is_bookmarked) {
         toast({
@@ -36,8 +36,7 @@ const QuoteCard = (props: QuoteWithBookMark) => {
         description: `${error.serverError}`,
       });
     }
-  },
-  );
+  });
 
   return (
     <div className="text-center relative rounded-xl w-full md:w-1/2 border shadow-lg">
@@ -57,7 +56,7 @@ const QuoteCard = (props: QuoteWithBookMark) => {
       </div>
 
       <Button variant="ghost" className="absolute bottom-2 right-2" onClick={() => execute({ quote_id: id })} disabled={status === "executing"}>
-        {bookmarked ? <BookmarkCheckIcon /> : <BookmarkIcon />}
+        {optimisticData ? <BookmarkCheckIcon /> : <BookmarkIcon />}
       </Button>
     </div>
   );
