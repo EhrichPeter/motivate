@@ -1,13 +1,12 @@
 import { cronCreateOne } from '@/server/quotes/actions';
 import { NextRequest, NextResponse } from 'next/server';
 
-export const revalidate = 0;
-
 export async function GET(request: NextRequest) {
+  const authHeader = request.headers?.get('Authorization');
+
   if (
     process.env.NODE_ENV === 'production' &&
-    request.headers?.get('Authorization') !==
-      `Bearer ${process.env.CRON_SECRET}`
+    authHeader !== `Bearer ${process.env.CRON_SECRET}`
   ) {
     return new NextResponse('unauthorized', { status: 401 });
   }
