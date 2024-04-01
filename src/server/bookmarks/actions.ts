@@ -32,7 +32,7 @@ export const toggleBookmark = authAction(
       new_state = true;
     }
 
-    revalidatePath('/');
+    revalidatePath('/', 'layout');
     return new_state;
   }
 );
