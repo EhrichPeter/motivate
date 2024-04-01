@@ -1,6 +1,6 @@
 import QuoteCard from "@/components/daily-quote/quote-card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Quote } from "@/server/quotes/models";
+import { QuoteWithBookMark } from "@/server/quotes/models";
 import { findManyWithUserBookMarks } from "@/server/quotes/queries";
 import { createClient } from "@/utils/supabase/server";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
@@ -8,7 +8,7 @@ import { RocketIcon } from "lucide-react";
 
 export default async function Bookmarks() {
   const supabase = createClient();
-  let quotes: Quote[] | null = [];
+  let quotes: QuoteWithBookMark[] | null = [];
 
   const { user } = (await supabase.auth.getUser()).data;
 
