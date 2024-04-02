@@ -1,6 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
 import { QuoteWithBookMark } from "./models";
-import { userAgent } from "next/server";
 
 export async function findOneLatest(): Promise<QuoteWithBookMark> {
   let bookmarked = false;

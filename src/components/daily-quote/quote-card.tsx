@@ -58,7 +58,7 @@ const QuoteCard = (props: QuoteWithBookMark) => {
   );
 
   return (
-    <div className="text-center relative rounded-xl w-full md:w-1/2 border shadow-lg">
+    <div className="text-center relative rounded-xl w-full md:w-1/2 shadow-xl">
       <Image
         src={picture_link}
         alt={picture_alt}
