@@ -84,7 +84,9 @@ const QuoteCard = (props: QuoteWithBookMark) => {
       <div className="flex gap-2 absolute bottom-4 left-4 text-sm">
         <Badge>{dayjs(created_at).format("DD.MM.YYYY")}</Badge>
         <span>·</span>
-        <Badge>Bookmarks {bookmarks.length}</Badge>
+        <Badge>
+          <BookmarkIcon size={10} /> {bookmarks.length}
+        </Badge>
       </div>
     </div>
   );
