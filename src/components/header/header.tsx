@@ -4,21 +4,18 @@ import { Button } from "@/components/ui/button";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Quote } from "@/server/quotes/models";
-import { findManyforUserWithBookMarks } from "@/server/quotes/queries";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { ModeToggle } from "../ui/mode-toggle";
 import Links from "./links";
 import { UserDropdown } from "./user-dropdown";
+import { findMany } from "@/server/quotes/queries";
 
 export async function Header() {
   const supabase = createClient();
-  let quotes: Quote[] = [];
   const { user } = (await supabase.auth.getUser()).data;
 
-  if (user) {
-    quotes = (await findManyforUserWithBookMarks(user.id)) || [];
-  }
+  const quotes = await findMany(true);
 
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4  border-b bg-background px-4 md:px-6 justify-between z-10">

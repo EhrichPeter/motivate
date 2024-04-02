@@ -3,7 +3,7 @@ import { findMany, findOneLatest } from "@/server/quotes/queries";
 
 export default async function DailyQuote() {
   const dailyQuote = await findOneLatest();
-  const quotes = await findMany();
+  const quotes = await findMany(false);
 
   if (!dailyQuote || !quotes) {
     return <h1>No Quote found</h1>;

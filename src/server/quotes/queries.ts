@@ -1,7 +1,8 @@
 import { createClient } from "@/utils/supabase/server";
 import { QuoteWithBookMark } from "./models";
+import { userAgent } from "next/server";
 
-export async function findOneLatest(): Promise<QuoteWithBookMark | null> {
+export async function findOneLatest(): Promise<QuoteWithBookMark> {
   let bookmarked = false;
 
   const supabase = createClient();
@@ -28,29 +29,9 @@ export async function findOneLatest(): Promise<QuoteWithBookMark | null> {
   };
 }
 
-export async function findManyforUserWithBookMarks(
-  user_id: string
-): Promise<QuoteWithBookMark[] | null> {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from("bookmarks")
-    .select(`quotes (*)`)
-    .eq("user_id", user_id);
-
-  if (error) {
-    throw error;
-  }
-
-  if (!data) {
-    return null;
-  }
-
-  const quotes = data.map((item) => ({ ...item.quotes, bookmarked: true }));
-
-  return quotes.filter((quote) => quote !== null) as QuoteWithBookMark[];
-}
-
-export async function findMany(): Promise<QuoteWithBookMark[] | null> {
+export async function findMany(
+  onlyShowBookmarked: boolean
+): Promise<QuoteWithBookMark[]> {
   const supabase = createClient();
   const { user } = (await supabase.auth.getUser()).data;
 
@@ -63,10 +44,12 @@ export async function findMany(): Promise<QuoteWithBookMark[] | null> {
     throw quoteResult.error;
   }
 
-  return quoteResult.data.map((quote) => ({
+  const res = quoteResult.data.map((quote) => ({
     ...quote,
     bookmarked: user
       ? quote.bookmarks.some((bookmark) => bookmark.user_id === user.id)
       : false,
   }));
+
+  return onlyShowBookmarked ? res.filter((quote) => quote.bookmarked) : res;
 }

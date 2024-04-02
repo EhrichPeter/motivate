@@ -67,9 +67,11 @@ const QuoteCard = (props: QuoteWithBookMark) => {
         className="absolute inset-0 object-cover w-full h-full opacity-50 rounded-xl"
       />
 
-      <div className="flex flex-col p-14">
-        <p className="italic text-xl font-bold">&quot;{quote}&quot;</p>-
-        <cite>{author}</cite>
+      <div className="flex flex-col p-14 pb-20">
+        <blockquote className="italic text-xl font-bold">
+          &quot;{quote}&quot;
+        </blockquote>
+        -<cite>{author}</cite>
       </div>
 
       <Button
@@ -83,7 +85,6 @@ const QuoteCard = (props: QuoteWithBookMark) => {
 
       <div className="flex gap-2 absolute bottom-4 left-4 text-sm">
         <Badge>{dayjs(created_at).format("DD.MM.YYYY")}</Badge>
-        <span>·</span>
         <Badge>
           <BookmarkIcon size={10} /> {bookmarks.length}
         </Badge>
