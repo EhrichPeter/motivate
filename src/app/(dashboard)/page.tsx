@@ -22,7 +22,7 @@ export default async function DailyQuote() {
 
       <QuoteCard {...dailyQuote} />
 
-      <div className="grid text-center">
+      <div className="grid text-center pt-16">
         <h1 className="text-4xl font-bold">Past Quotes</h1>
         <p className="text-balance text-muted-foreground">
           Relive the past moments of inspiration.
