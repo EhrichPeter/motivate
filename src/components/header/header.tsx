@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Quote } from "@/server/quotes/models";
-import { findManyWithUserBookMarks } from "@/server/quotes/queries";
+import { findManyforUserWithBookMarks } from "@/server/quotes/queries";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { ModeToggle } from "../ui/mode-toggle";
@@ -13,11 +13,11 @@ import { UserDropdown } from "./user-dropdown";
 
 export async function Header() {
   const supabase = createClient();
-  let quotes: Quote[] = []
+  let quotes: Quote[] = [];
   const { user } = (await supabase.auth.getUser()).data;
 
   if (user) {
-    quotes = await findManyWithUserBookMarks(user.id) || [];
+    quotes = (await findManyforUserWithBookMarks(user.id)) || [];
   }
 
   return (

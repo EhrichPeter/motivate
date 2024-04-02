@@ -1,13 +1,15 @@
 import QuoteCard from "@/components/daily-quote/quote-card";
-import { findOneLatest } from "@/server/quotes/queries";
-
+import { findMany, findOneLatest } from "@/server/quotes/queries";
 
 export default async function DailyQuote() {
-  const quote = await findOneLatest();
+  const dailyQuote = await findOneLatest();
+  const quotes = await findMany();
 
-  if (!quote) {
-    return <h1>No Quote found</h1>
+  if (!dailyQuote || !quotes) {
+    return <h1>No Quote found</h1>;
   }
+
+  quotes.splice(0, 1);
 
   return (
     <div className="flex flex-col items-center gap-8 pt-6 w-full">
@@ -18,7 +20,18 @@ export default async function DailyQuote() {
         </p>
       </div>
 
-      <QuoteCard {...quote} />
+      <QuoteCard {...dailyQuote} />
+
+      <div className="grid text-center">
+        <h1 className="text-4xl font-bold">Past Quotes</h1>
+        <p className="text-balance text-muted-foreground">
+          Relive the past moments of inspiration.
+        </p>
+      </div>
+
+      {quotes.map((quote) => (
+        <QuoteCard key={quote.id} {...quote} />
+      ))}
     </div>
   );
 }

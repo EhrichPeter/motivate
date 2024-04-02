@@ -1,7 +1,7 @@
 import QuoteCard from "@/components/daily-quote/quote-card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { QuoteWithBookMark } from "@/server/quotes/models";
-import { findManyWithUserBookMarks } from "@/server/quotes/queries";
+import { findManyforUserWithBookMarks } from "@/server/quotes/queries";
 import { createClient } from "@/utils/supabase/server";
 import { MagnifyingGlassIcon } from "@radix-ui/react-icons";
 import { RocketIcon } from "lucide-react";
@@ -13,7 +13,7 @@ export default async function Bookmarks() {
   const { user } = (await supabase.auth.getUser()).data;
 
   if (user) {
-    quotes = await findManyWithUserBookMarks(user.id);
+    quotes = await findManyforUserWithBookMarks(user.id);
     if (!quotes || quotes.length === 0) {
       return (
         <div className="flex w-full md:w-1/2">
@@ -25,7 +25,7 @@ export default async function Bookmarks() {
             </AlertDescription>
           </Alert>
         </div>
-      )
+      );
     }
 
     return (
@@ -46,6 +46,6 @@ export default async function Bookmarks() {
           Sign up or log in to bookmark your favorite quotes
         </AlertDescription>
       </Alert>
-    </div >
+    </div>
   );
 }
