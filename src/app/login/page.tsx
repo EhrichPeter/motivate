@@ -7,7 +7,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { loginWithOtp } from "@/server/auth/actions";
 import { loginWithOtpFormSchema } from "@/server/auth/models";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ChevronLeftIcon } from "lucide-react";
+import { ChevronLeftIcon, LoaderIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
@@ -89,7 +89,11 @@ export default function Login() {
               disabled={status === "executing"}
               className="w-full"
             >
-              Login
+              {status === "executing" ? (
+                <LoaderIcon className="animate-spin" />
+              ) : (
+                "Login"
+              )}
             </Button>
           </form>
         </div>

@@ -6,6 +6,7 @@ import QuoteCard from "./quote-card";
 import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import { QuoteWithBookMark } from "@/server/quotes/models";
+import { LoaderIcon } from "lucide-react";
 
 const QuoteList = (props: { filterBookmarks: boolean }) => {
   const {
@@ -45,7 +46,11 @@ const QuoteList = (props: { filterBookmarks: boolean }) => {
           disabled={fetchStatus === "fetching"}
           ref={ref}
         >
-          {fetchStatus === "fetching" ? "Loading..." : "Load more"}
+          {fetchStatus === "fetching" ? (
+            <LoaderIcon className="animate-spin" />
+          ) : (
+            "Load more"
+          )}
         </Button>
       )}
     </div>
