@@ -27,8 +27,6 @@ export default function RootLayout({
           inter.variable
         )}
       >
-        <SpeedInsights />
-        <Analytics />
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -37,6 +35,8 @@ export default function RootLayout({
         >
           {children}
           <Toaster />
+          <SpeedInsights />
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>
