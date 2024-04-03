@@ -10,6 +10,7 @@ import { useToast } from "../ui/use-toast";
 import dayjs from "dayjs";
 import { Badge } from "../ui/badge";
 import { StoryDialog } from "./story-dialog";
+import Link from "next/link";
 
 dayjs().format();
 
@@ -62,13 +63,15 @@ const QuoteCard = (props: QuoteWithBookMark) => {
 
   return (
     <div className="text-center relative w-full md:w-1/2">
-      <Image
-        src={picture_link}
-        alt={picture_alt}
-        width={500}
-        height={100}
-        className="absolute inset-0 object-cover w-full h-full opacity-50 rounded border shadow hover:shadow-2xl transition-shadow duration-300 ease-in-out"
-      />
+      <Link href={`/quote/${id}`}>
+        <Image
+          src={picture_link}
+          alt={picture_alt}
+          width={500}
+          height={100}
+          className="absolute inset-0 object-cover w-full h-full opacity-50 rounded border shadow hover:shadow-2xl transition-shadow duration-300 ease-in-out"
+        />
+      </Link>
 
       <div className="flex flex-col p-14 pb-20">
         <blockquote className="italic text-xl font-bold">
@@ -78,7 +81,7 @@ const QuoteCard = (props: QuoteWithBookMark) => {
       </div>
 
       <div className="absolute bottom-2 right-2">
-        <StoryDialog story={story ?? quote} headline={headline ?? author} />
+        {/* <StoryDialog story={story ?? quote} headline={headline ?? author} /> */}
         <Button
           variant="ghost"
           onClick={() => execute({ quote_id: id })}

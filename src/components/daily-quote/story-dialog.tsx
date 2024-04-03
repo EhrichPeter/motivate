@@ -20,7 +20,7 @@ export function StoryDialog(props: { story: string; headline: string }) {
           <BookIcon />
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="w-full container p-8">
         <AlertDialogHeader>
           <AlertDialogTitle>{headline}</AlertDialogTitle>
           <AlertDialogDescription>{story}</AlertDialogDescription>

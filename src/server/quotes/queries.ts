@@ -1,7 +1,9 @@
 import { createClient } from "@/utils/supabase/server";
 import { QuoteWithBookMark } from "./models";
 
-export async function findOneLatest(): Promise<QuoteWithBookMark> {
+export async function findOneById(
+  quote_id: number
+): Promise<QuoteWithBookMark> {
   let bookmarked = false;
 
   const supabase = createClient();
@@ -12,6 +14,7 @@ export async function findOneLatest(): Promise<QuoteWithBookMark> {
     .select("*, bookmarks(*)")
     .order("created_at", { ascending: false })
     .limit(1)
+    .eq("id", quote_id)
     .single();
 
   if (quoteResult.error) {
