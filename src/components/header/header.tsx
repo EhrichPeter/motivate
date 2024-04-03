@@ -3,7 +3,6 @@ import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Quote } from "@/server/quotes/models";
 import { createClient } from "@/utils/supabase/server";
 import Link from "next/link";
 import { ModeToggle } from "../ui/mode-toggle";
@@ -18,7 +17,7 @@ export async function Header() {
   const quotes = await findMany(true);
 
   return (
-    <header className="sticky top-0 flex h-16 items-center gap-4  border-b bg-background px-4 md:px-6 justify-between z-10">
+    <header className="sticky top-0 flex h-16 items-center gap-4  border-b px-4 md:px-6 justify-between z-10 backdrop-blur-lg">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
         <Links number_of_bookmarks={quotes.length} />
       </nav>
