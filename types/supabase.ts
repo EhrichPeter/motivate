@@ -52,28 +52,34 @@ export type Database = {
         Row: {
           author: string
           created_at: string
+          headline: string | null
           id: number
           picture_alt: string
           picture_link: string
           quote: string
+          story: string | null
           updated_at: string
         }
         Insert: {
           author: string
           created_at?: string
+          headline?: string | null
           id?: never
           picture_alt: string
           picture_link: string
           quote: string
+          story?: string | null
           updated_at?: string
         }
         Update: {
           author?: string
           created_at?: string
+          headline?: string | null
           id?: never
           picture_alt?: string
           picture_link?: string
           quote?: string
+          story?: string | null
           updated_at?: string
         }
         Relationships: []

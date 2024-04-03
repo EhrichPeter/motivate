@@ -9,6 +9,7 @@ import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import dayjs from "dayjs";
 import { Badge } from "../ui/badge";
+import { StoryDialog } from "./story-dialog";
 
 dayjs().format();
 
@@ -22,6 +23,8 @@ const QuoteCard = (props: QuoteWithBookMark) => {
     bookmarked,
     created_at,
     bookmarks,
+    story,
+    headline,
   } = props;
   const { toast } = useToast();
 
@@ -74,14 +77,16 @@ const QuoteCard = (props: QuoteWithBookMark) => {
         -<cite>{author}</cite>
       </div>
 
-      <Button
-        variant="ghost"
-        className="absolute bottom-2 right-2"
-        onClick={() => execute({ quote_id: id })}
-        disabled={status === "executing"}
-      >
-        {optimisticData ? <BookmarkCheckIcon /> : <BookmarkIcon />}
-      </Button>
+      <div className="absolute bottom-2 right-2">
+        <StoryDialog story={story ?? quote} headline={headline ?? author} />
+        <Button
+          variant="ghost"
+          onClick={() => execute({ quote_id: id })}
+          disabled={status === "executing"}
+        >
+          {optimisticData ? <BookmarkCheckIcon /> : <BookmarkIcon />}
+        </Button>
+      </div>
 
       <div className="flex gap-2 absolute bottom-4 left-4 text-sm">
         <Badge>{dayjs(created_at).format("DD.MM.YYYY")}</Badge>
