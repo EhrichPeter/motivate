@@ -10,7 +10,7 @@ export default async function Post({ params }: { params: { id: string } }) {
 
   return (
     <main className="flex min-h-screen flex-col items-center container py-4">
-      <div className="fixed left-5 top-5">
+      <div className="fixed left-5 top-5 bg-background z-10 rounded">
         <Link href="/">
           <Button variant={"ghost"}>
             <ChevronLeftIcon className="h-6 w-6" />
