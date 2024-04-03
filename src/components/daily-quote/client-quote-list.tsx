@@ -8,7 +8,7 @@ import { useEffect } from "react";
 import { QuoteWithBookMark } from "@/server/quotes/models";
 import { LoaderIcon } from "lucide-react";
 
-const QuoteList = (props: { filterBookmarks: boolean }) => {
+const ClientQuoteList = (props: { filterBookmarks: boolean }) => {
   const {
     data: quotePages,
     fetchNextPage,
@@ -57,4 +57,4 @@ const QuoteList = (props: { filterBookmarks: boolean }) => {
   );
 };
 
-export default QuoteList;
+export default ClientQuoteList;

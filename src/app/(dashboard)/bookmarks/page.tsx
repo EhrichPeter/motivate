@@ -1,25 +1,13 @@
-import QuoteList from "@/components/daily-quote/quote-list";
+import ServerQuoteList from "@/components/daily-quote/server-quote-list";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { findMany } from "@/server/quotes/queries";
 import { createClient } from "@/utils/supabase/server";
 import { MagnifyingGlassIcon, RocketIcon } from "@radix-ui/react-icons";
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-} from "@tanstack/react-query";
 
 export default async function Bookmarks() {
   const supabase = createClient();
 
   const { user } = (await supabase.auth.getUser()).data;
-
-  const queryClient = new QueryClient();
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ["quotes"],
-    queryFn: ({ pageParam }) => findMany({ pageParam }),
-    initialPageParam: 0,
-  });
 
   if (!user) {
     return (
@@ -58,9 +46,7 @@ export default async function Bookmarks() {
           Your favorite quotes saved for later.
         </p>
       </div>
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <QuoteList filterBookmarks={true} />
-      </HydrationBoundary>
+      <ServerQuoteList filterBookmarks={true} />
     </div>
   );
 }

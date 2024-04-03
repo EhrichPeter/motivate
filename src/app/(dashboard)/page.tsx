@@ -1,21 +1,9 @@
 import QuoteCard from "@/components/daily-quote/quote-card";
-import QuoteList from "@/components/daily-quote/quote-list";
+import ServerQuoteList from "@/components/daily-quote/server-quote-list";
 import { findMany, findOneLatest } from "@/server/quotes/queries";
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-} from "@tanstack/react-query";
 
 export default async function DailyQuote() {
   const dailyQuote = await findOneLatest();
-
-  const queryClient = new QueryClient();
-  await queryClient.prefetchInfiniteQuery({
-    queryKey: ["quotes"],
-    queryFn: ({ pageParam }) => findMany({ pageParam }),
-    initialPageParam: 1,
-  });
 
   return (
     <div className="flex flex-col items-center gap-8 pt-6 w-full">
@@ -35,9 +23,7 @@ export default async function DailyQuote() {
         </p>
       </div>
 
-      <HydrationBoundary state={dehydrate(queryClient)}>
-        <QuoteList filterBookmarks={false} />
-      </HydrationBoundary>
+      <ServerQuoteList filterBookmarks={false} />
     </div>
   );
 }
