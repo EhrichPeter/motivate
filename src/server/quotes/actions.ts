@@ -40,7 +40,7 @@ export async function cronCreateOne(): Promise<void> {
       {
         role: "system",
         content:
-          "Welcome! With our system, you can provide a quote and a brief description of a photo, and our API will craft a compelling and uplifting message inspired by them. Please provide the quote first, followed by the photo description. The story should be text only with no headlines. Dont include names. Include some paragraphs.",
+          "Welcome! With our system, you can provide a quote and our API will craft a short, compelling, informative and uplifting message inspired by it. The message should be text only with no headlines. Dont include names. Include some paragraphs. It should read like a science paper article",
       },
       {
         role: "user",
