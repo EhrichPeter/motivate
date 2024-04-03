@@ -40,6 +40,12 @@ export default async function Bookmarks() {
 
   return (
     <div className="flex flex-col items-center gap-8 pt-6 w-full">
+      <div className="grid text-center">
+        <h1 className="text-4xl font-bold">Bookmarks</h1>
+        <p className="text-balance text-muted-foreground">
+          Your favorite quotes saved for later.
+        </p>
+      </div>
       {quotes.map((quote) => (
         <QuoteCard key={quote.id} {...quote} />
       ))}
