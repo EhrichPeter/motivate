@@ -1,10 +1,10 @@
-'use server';
+"use server";
 
-import { createClient } from '@/utils/supabase/server';
-import { revalidatePath } from 'next/cache';
-import { publicAction } from '../safe-action';
-import { loginWithOtpFormSchema } from './models';
-import { getURL } from './queries';
+import { createClient } from "@/utils/supabase/server";
+import { revalidatePath } from "next/cache";
+import { publicAction } from "../safe-action";
+import { loginWithOtpFormSchema } from "./models";
+import { getURL } from "./queries";
 
 export const loginWithOtp = publicAction(
   loginWithOtpFormSchema,
@@ -36,5 +36,5 @@ export const logout = async () => {
     throw new Error(error.message);
   }
 
-  revalidatePath('/', 'layout');
+  revalidatePath("/");
 };

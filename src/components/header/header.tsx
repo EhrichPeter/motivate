@@ -13,7 +13,8 @@ import { findMany } from "@/server/quotes/queries";
 export async function Header() {
   const supabase = createClient();
   const { user } = (await supabase.auth.getUser()).data;
-  const { data: quotes } = await findMany({ filterBookmarks: true });
+  const { data } = await findMany({});
+  const quotes = data.filter((quote) => quote.bookmarked);
 
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4  border-b px-4 md:px-6 justify-between z-10 bg-background">
