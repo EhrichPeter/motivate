@@ -64,7 +64,7 @@ const QuoteCard = (props: QuoteWithBookMark) => {
         alt={picture_alt}
         width={500}
         height={100}
-        className="absolute inset-0 object-cover w-full h-full opacity-50 rounded border shadow-xl"
+        className="absolute inset-0 object-cover w-full h-full opacity-50 rounded border shadow hover:shadow-2xl transition-shadow duration-300 ease-in-out"
       />
 
       <div className="flex flex-col p-14 pb-20">
