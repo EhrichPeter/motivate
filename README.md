@@ -18,6 +18,7 @@ Quote is built using the following technologies:
 - **Tailwind CSS:** A utility-first CSS framework for rapidly building custom user interfaces.
 - **shadcnui:** A library for creating shadowed and rounded UI components.
 - **supabase:** An open-source Firebase alternative that provides a suite of tools for building scalable and secure applications, including authentication, real-time database, and file storage.
+- **OpenAI Api:** The OpenAI API is used to extract keywords from quotes and find suitable backdrop images.
 
 The application also utilizes the following API:
 
