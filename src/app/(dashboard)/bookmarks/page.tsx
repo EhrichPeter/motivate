@@ -1,13 +1,25 @@
-import QuoteCard from "@/components/daily-quote/quote-card";
+import QuoteList from "@/components/daily-quote/quote-list";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { findMany } from "@/server/quotes/queries";
 import { createClient } from "@/utils/supabase/server";
 import { MagnifyingGlassIcon, RocketIcon } from "@radix-ui/react-icons";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
 
 export default async function Bookmarks() {
   const supabase = createClient();
 
   const { user } = (await supabase.auth.getUser()).data;
+
+  const queryClient = new QueryClient();
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: ["quotes"],
+    queryFn: ({ pageParam }) => findMany({ pageParam }),
+    initialPageParam: 0,
+  });
 
   if (!user) {
     return (
@@ -23,7 +35,7 @@ export default async function Bookmarks() {
     );
   }
 
-  const quotes = await findMany(true);
+  const { data: quotes } = await findMany({ filterBookmarks: true });
   if (quotes.length === 0) {
     return (
       <div className="flex w-full md:w-1/2">
@@ -46,9 +58,9 @@ export default async function Bookmarks() {
           Your favorite quotes saved for later.
         </p>
       </div>
-      {quotes.map((quote) => (
-        <QuoteCard key={quote.id} {...quote} />
-      ))}
+      <HydrationBoundary state={dehydrate(queryClient)}>
+        <QuoteList filterBookmarks={true} />
+      </HydrationBoundary>
     </div>
   );
 }

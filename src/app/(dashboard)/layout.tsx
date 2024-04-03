@@ -1,5 +1,6 @@
 import Footer from "@/components/footer/footer";
 import { Header } from "@/components/header/header";
+import Providers from "@/components/query-provider";
 import type { ReactElement } from "react";
 
 interface LayoutProps {
