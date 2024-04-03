@@ -1,9 +1,9 @@
 import QuoteCard from "@/components/daily-quote/quote-card";
-import { findMany, findOneLatest } from "@/server/quotes/queries";
+import { findMany } from "@/server/quotes/queries";
 
 export default async function DailyQuote() {
-  const dailyQuote = await findOneLatest();
   const quotes = await findMany(false);
+  const dailyQuote = quotes[0];
 
   if (!dailyQuote || !quotes) {
     return <h1>No Quote found</h1>;

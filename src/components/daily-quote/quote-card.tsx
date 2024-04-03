@@ -58,13 +58,13 @@ const QuoteCard = (props: QuoteWithBookMark) => {
   );
 
   return (
-    <div className="text-center relative rounded-xl w-full md:w-1/2 shadow-xl">
+    <div className="text-center relative w-full md:w-1/2">
       <Image
         src={picture_link}
         alt={picture_alt}
         width={500}
         height={100}
-        className="absolute inset-0 object-cover w-full h-full opacity-50 rounded-xl"
+        className="absolute inset-0 object-cover w-full h-full opacity-50 rounded border shadow-xl"
       />
 
       <div className="flex flex-col p-14 pb-20">
