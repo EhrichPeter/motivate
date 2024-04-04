@@ -51,6 +51,7 @@ const QuoteCard = (props: QuoteWithBookMark) => {
           });
         }
         queryClient.invalidateQueries({ queryKey: ["quotes"] });
+        queryClient.invalidateQueries({ queryKey: ["bookmarksCount"] });
       }
     },
     onError: (error) => {

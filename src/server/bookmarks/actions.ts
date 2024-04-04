@@ -12,10 +12,6 @@ export const toggleBookmark = authAction(
 
     let new_state: boolean;
 
-    console.log("quote_id", quote_id);
-    console.log("user_id", user_id);
-    console.log("toggleBookmark");
-
     const { data } = await supabase
       .from("bookmarks")
       .select("*")
@@ -36,7 +32,6 @@ export const toggleBookmark = authAction(
       new_state = true;
     }
 
-    // revalidatePath('/');
     return new_state;
   }
 );

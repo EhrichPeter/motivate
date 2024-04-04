@@ -40,3 +40,21 @@ export async function findMany({
 
   return paginatedResponse;
 }
+
+export const countBookmarkedQuotes = async () => {
+  const supabase = createClient();
+  const { user } = (await supabase.auth.getUser()).data;
+
+  if (!user) {
+    return 0;
+  }
+
+  const { count } = await supabase
+    .from("quotes")
+    .select("*, bookmarks(user_id)", { count: "exact", head: true })
+    .match({ "bookmarks.user_id": user.id });
+
+  console.log(count);
+
+  return count ?? 0;
+};

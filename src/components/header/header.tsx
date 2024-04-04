@@ -13,13 +13,11 @@ import { findMany } from "@/server/quotes/queries";
 export async function Header() {
   const supabase = createClient();
   const { user } = (await supabase.auth.getUser()).data;
-  const { data } = await findMany({});
-  const quotes = data.filter((quote) => quote.bookmarked);
 
   return (
     <header className="sticky top-0 flex h-16 items-center gap-4  border-b px-4 md:px-6 justify-between z-10 bg-background">
       <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-        <Links number_of_bookmarks={quotes.length} />
+        <Links />
       </nav>
       <Sheet>
         <SheetTrigger asChild>
@@ -30,7 +28,7 @@ export async function Header() {
         </SheetTrigger>
         <SheetContent side="left">
           <nav className="grid gap-6 text-lg font-medium">
-            <Links number_of_bookmarks={quotes.length} />
+            <Links />
           </nav>
         </SheetContent>
       </Sheet>
