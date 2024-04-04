@@ -16,7 +16,6 @@ const QuoteList = () => {
     fetchNextPage,
     fetchStatus,
     hasNextPage,
-    isFetching,
   } = useGetQuotes();
 
   const searchParams = useSearchParams();
@@ -32,9 +31,9 @@ const QuoteList = () => {
     return quotePages?.pages.map((page) => page.data);
   }, [currentTag, quotePages]);
 
-  useEffect(() => {
-    console.log(hasNextPage);
-  }, [hasNextPage]);
+  // useEffect(() => {
+  //   console.log(hasNextPage);
+  // }, [hasNextPage]);
 
   const { ref, inView } = useInView();
 
@@ -58,7 +57,7 @@ const QuoteList = () => {
 
       {hasNextPage && (
         <Button
-          variant={"outline"}
+          variant={"ghost"}
           className={"rounded-full"}
           onClick={() => fetchNextPage()}
           disabled={fetchStatus === "fetching"}
