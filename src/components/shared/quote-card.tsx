@@ -39,7 +39,7 @@ const QuoteCard = (props: QuoteWithBookMark) => {
             description: "You have bookmarked this quote.",
           });
         } else {
-          toast("Something went wrong!", {
+          toast("Bookmark removed!", {
             description: "You have unbookmarked this quote",
           });
         }
