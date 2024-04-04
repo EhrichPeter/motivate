@@ -31,17 +31,13 @@ const QuoteList = () => {
     return quotePages?.pages.map((page) => page.data);
   }, [currentTag, quotePages]);
 
-  // useEffect(() => {
-  //   console.log(hasNextPage);
-  // }, [hasNextPage]);
-
   const { ref, inView } = useInView();
 
-  useEffect(() => {
-    if (inView && hasNextPage) {
-      fetchNextPage();
-    }
-  }, [inView, hasNextPage, fetchNextPage]);
+  // useEffect(() => {
+  //   if (inView && hasNextPage) {
+  //     fetchNextPage();
+  //   }
+  // }, [inView, hasNextPage, fetchNextPage]);
 
   if (!filteredData) {
     return <NoQuotes />;
@@ -57,7 +53,7 @@ const QuoteList = () => {
 
       {hasNextPage && (
         <Button
-          variant={"ghost"}
+          variant={"outline"}
           className={"rounded-full"}
           onClick={() => fetchNextPage()}
           disabled={fetchStatus === "fetching"}
