@@ -33,11 +33,11 @@ const QuoteList = () => {
 
   const { ref, inView } = useInView();
 
-  // useEffect(() => {
-  //   if (inView && hasNextPage) {
-  //     fetchNextPage();
-  //   }
-  // }, [inView, hasNextPage, fetchNextPage]);
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage();
+    }
+  }, [inView, hasNextPage, fetchNextPage]);
 
   if (!filteredData) {
     return <NoQuotes />;
@@ -45,27 +45,16 @@ const QuoteList = () => {
 
   return (
     <div className="flex flex-col items-center w-full gap-8">
-      {filteredData!.map((page) =>
+      {filteredData.map((page) =>
         page.map((quote: QuoteWithBookMark) => (
           <QuoteCard key={quote.id} {...quote} />
         ))
       )}
-
-      {hasNextPage && (
-        <Button
-          variant={"outline"}
-          className={"rounded-full"}
-          onClick={() => fetchNextPage()}
-          disabled={fetchStatus === "fetching"}
-          ref={ref}
-        >
-          {fetchStatus === "fetching" ? (
-            <LoaderIcon className="animate-spin" />
-          ) : (
-            "Load more"
-          )}
-        </Button>
-      )}
+      <div ref={ref}>
+        {fetchStatus === "fetching" ? (
+          <LoaderIcon className="animate-spin" />
+        ) : null}
+      </div>
     </div>
   );
 };
