@@ -1,4 +1,3 @@
-import { QuoteWithBookMark } from "@/server/quotes/models";
 import { findMany } from "@/server/quotes/queries";
 import { useInfiniteQuery } from "@tanstack/react-query";
 

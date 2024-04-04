@@ -7,8 +7,9 @@ import { useInView } from "react-intersection-observer";
 import { useEffect } from "react";
 import { QuoteWithBookMark } from "@/server/quotes/models";
 import { LoaderIcon } from "lucide-react";
+import NoQuotes from "../bookmarks/no-quotes";
 
-const ClientQuoteList = (props: { filterBookmarks: boolean }) => {
+const QuoteList = (props: { filterBookmarks: boolean }) => {
   const {
     data: quotePages,
     fetchNextPage,
@@ -28,14 +29,20 @@ const ClientQuoteList = (props: { filterBookmarks: boolean }) => {
     return props.filterBookmarks ? quote.bookmarked : true;
   };
 
+  const filtered = quotePages?.pages.map((page) =>
+    page.data.filter(filterByBookmarks)
+  );
+
+  if (!filtered || filtered[0].length === 0) {
+    return <NoQuotes />;
+  }
+
   return (
     <div className="flex flex-col items-center w-full gap-8">
-      {quotePages?.pages.map((page) =>
-        page.data
-          .filter(filterByBookmarks)
-          .map((quote: QuoteWithBookMark) => (
-            <QuoteCard key={quote.id} {...quote} />
-          ))
+      {filtered.map((page) =>
+        page.map((quote: QuoteWithBookMark) => (
+          <QuoteCard key={quote.id} {...quote} />
+        ))
       )}
 
       {hasNextPage && (
@@ -57,4 +64,4 @@ const ClientQuoteList = (props: { filterBookmarks: boolean }) => {
   );
 };
 
-export default ClientQuoteList;
+export default QuoteList;

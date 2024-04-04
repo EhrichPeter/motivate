@@ -3,12 +3,12 @@
 import { toggleBookmark } from "@/server/bookmarks/actions";
 import { QuoteWithBookMark } from "@/server/quotes/models";
 import { BookmarkCheckIcon, BookmarkIcon } from "lucide-react";
-import { useOptimisticAction } from "next-safe-action/hooks";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { useToast } from "../ui/use-toast";
 import dayjs from "dayjs";
 import { Badge } from "../ui/badge";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 dayjs().format();
 
@@ -25,15 +25,19 @@ const QuoteCard = (props: QuoteWithBookMark) => {
   } = props;
   const { toast } = useToast();
 
-  const { execute, status, optimisticData } = useOptimisticAction(
-    toggleBookmark,
-    bookmarked,
-    () => {
-      return !bookmarked;
-    },
-    {
-      onSuccess: (new_is_bookmarked) => {
-        if (new_is_bookmarked) {
+  const queryClient = useQueryClient();
+  const { isPending, mutate } = useMutation({
+    mutationKey: ["quotes"],
+    mutationFn: () => toggleBookmark({ quote_id: id }),
+    onSuccess: ({ data: new_state, serverError }) => {
+      if (serverError) {
+        toast({
+          variant: "destructive",
+          title: "Head up!",
+          description: `${serverError}`,
+        });
+      } else {
+        if (new_state) {
           toast({
             variant: "default",
             title: "Bookmark set!",
@@ -46,16 +50,17 @@ const QuoteCard = (props: QuoteWithBookMark) => {
             description: "You have removed the bookmark from this quote.",
           });
         }
-      },
-      onError: (error) => {
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: `${error.serverError}`,
-        });
-      },
-    }
-  );
+        queryClient.invalidateQueries({ queryKey: ["quotes"] });
+      }
+    },
+    onError: (error) => {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: `${error.message}`,
+      });
+    },
+  });
 
   return (
     <div className="text-center relative w-full md:w-1/2">
@@ -77,10 +82,11 @@ const QuoteCard = (props: QuoteWithBookMark) => {
       <div className="absolute bottom-2 right-2">
         <Button
           variant="ghost"
-          onClick={() => execute({ quote_id: id })}
-          disabled={status === "executing"}
+          onClick={() => mutate()}
+          disabled={isPending}
+          className="hover:bg-transparent"
         >
-          {optimisticData ? <BookmarkCheckIcon /> : <BookmarkIcon />}
+          {bookmarked ? <BookmarkCheckIcon /> : <BookmarkIcon />}
         </Button>
       </div>
 

@@ -1,8 +1,6 @@
-import ServerQuoteList from "@/components/daily-quote/server-quote-list";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { findMany } from "@/server/quotes/queries";
+import BookmarkedQuotes from "@/components/bookmarks/bookmarked-quotes";
+import NotLoggedIn from "@/components/bookmarks/not-logged-in";
 import { createClient } from "@/utils/supabase/server";
-import { MagnifyingGlassIcon, RocketIcon } from "@radix-ui/react-icons";
 
 export default async function Bookmarks() {
   const supabase = createClient();
@@ -10,43 +8,8 @@ export default async function Bookmarks() {
   const { user } = (await supabase.auth.getUser()).data;
 
   if (!user) {
-    return (
-      <div className="flex w-full md:w-1/2">
-        <Alert>
-          <RocketIcon className="h-4 w-4" />
-          <AlertTitle>Heads up!</AlertTitle>
-          <AlertDescription>
-            Sign up or log in to bookmark your favorite quotes
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
+    return <NotLoggedIn />;
+  } else {
+    return <BookmarkedQuotes />;
   }
-
-  const { data: quotes } = await findMany({ filterBookmarks: true });
-  if (quotes.length === 0) {
-    return (
-      <div className="flex w-full md:w-1/2">
-        <Alert>
-          <MagnifyingGlassIcon className="h-4 w-4" />
-          <AlertTitle>You have no saved quotes!</AlertTitle>
-          <AlertDescription>
-            Press the bookmark icon to save your favorite quotes
-          </AlertDescription>
-        </Alert>
-      </div>
-    );
-  }
-
-  return (
-    <div className="flex flex-col items-center gap-8 pt-6 w-full">
-      <div className="grid text-center">
-        <h1 className="text-4xl font-bold">Bookmarks</h1>
-        <p className="text-balance text-muted-foreground">
-          Your favorite quotes saved for later.
-        </p>
-      </div>
-      <ServerQuoteList filterBookmarks={true} />
-    </div>
-  );
 }
