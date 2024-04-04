@@ -8,7 +8,7 @@ function Providers({ children }: React.PropsWithChildren) {
   const [client] = useState(
     new QueryClient({
       defaultOptions: {
-        queries: { staleTime: 60 * 1000 },
+        queries: { staleTime: 60 * 1000, refetchInterval: 2 * 60 * 1000 },
       },
     })
   );
