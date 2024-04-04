@@ -4,7 +4,7 @@ import { createClient } from "@/utils/supabase/server";
 import { PaginatedQuoteResponse, Quote, QuoteWithBookMark } from "./models";
 
 export async function findMany({
-  limit = 5,
+  limit = 25,
   pageParam = 0,
 }: {
   filterBookmarks?: boolean;

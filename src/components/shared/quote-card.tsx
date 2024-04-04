@@ -47,7 +47,7 @@ const QuoteCard = (props: QuoteWithBookMark) => {
         queryClient.invalidateQueries({ queryKey: ["latestQuote"] });
       }
     },
-    onError: (error) => {
+    onError: () => {
       toast("Something went wrong!", {
         description: "This should never happen.",
       });
