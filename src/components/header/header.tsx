@@ -8,7 +8,6 @@ import Link from "next/link";
 import { ModeToggle } from "../ui/mode-toggle";
 import Links from "./links";
 import { UserDropdown } from "./user-dropdown";
-import { findMany } from "@/server/quotes/queries";
 
 export async function Header() {
   const supabase = createClient();

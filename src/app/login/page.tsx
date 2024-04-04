@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
 import { loginWithOtp } from "@/server/auth/actions";
 import { loginWithOtpFormSchema } from "@/server/auth/models";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -11,6 +10,7 @@ import { ChevronLeftIcon, LoaderIcon } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import { z } from "zod";
 
 type loginFormType = z.infer<typeof loginWithOtpFormSchema>;
@@ -24,30 +24,23 @@ export default function Login() {
   } = useForm<loginFormType>({
     resolver: zodResolver(loginWithOtpFormSchema),
   });
-  const { toast } = useToast();
 
   const { execute, status } = useAction(loginWithOtp, {
     onSuccess: () => {
-      toast({
-        variant: "default",
-        title: "Magic link sent!",
-        description: "Check your email inbox to log in.",
+      toast("Magic link sent!", {
+        description: "Check your email to login.",
       });
       reset();
     },
     onError: (error) => {
       if (error.validationErrors) {
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
+        toast("Something went wrong!", {
           description: "Please check your email and try again.",
         });
       } else if (error.serverError) {
         console.log(error.serverError);
-        toast({
-          variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: `${error.serverError}`,
+        toast("Something went wrong!", {
+          description: error.serverError,
         });
       }
     },

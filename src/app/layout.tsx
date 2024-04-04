@@ -3,10 +3,10 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/toaster";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/react";
 import Providers from "@/components/query-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -35,7 +35,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Providers>{children}</Providers>
-          <Toaster />
+          <Toaster position="bottom-right" />
           <SpeedInsights />
           <Analytics />
         </ThemeProvider>

@@ -1,12 +1,11 @@
 "use client";
-
-import { useGetQuotes } from "@/data/get-quotes";
 import QuoteCard from "../shared/quote-card";
+import { useGetLatestQuote } from "@/data/get-latest-quote";
 
 const DailyQuote = () => {
-  const { data: quotePages } = useGetQuotes();
+  const { data: quote } = useGetLatestQuote();
 
-  const quote = quotePages!.pages[0].data[0];
+  if (!quote) return null;
 
   return (
     <div className="flex flex-col items-center w-full gap-8">

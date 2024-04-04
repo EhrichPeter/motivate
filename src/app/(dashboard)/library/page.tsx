@@ -1,12 +1,13 @@
+import Filter from "@/components/library/filter";
+import QuoteList from "@/components/shared/quote-list";
+import { findMany } from "@/server/quotes/queries";
 import {
   HydrationBoundary,
   QueryClient,
   dehydrate,
 } from "@tanstack/react-query";
-import QuoteList from "../shared/quote-list";
-import { findMany } from "@/server/quotes/queries";
 
-const BookmarkedQuotes = async () => {
+export default async function Library() {
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery({
     queryKey: ["quotes"],
@@ -15,17 +16,18 @@ const BookmarkedQuotes = async () => {
   });
 
   return (
-    <div className="flex flex-col items-center gap-8 pt-6 w-full">
+    <main className="flex flex-col items-center w-full gap-8">
       <div className="grid text-center">
-        <h1 className="text-4xl font-bold">Bookmarks</h1>
+        <h1 className="text-4xl font-bold">Library</h1>
         <p className="text-balance text-muted-foreground">
-          Your favorite quotes saved for later.
+          A collection of inspiring quotes.
         </p>
       </div>
+
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <QuoteList filterBookmarks={true} />
+        <Filter />
+        <QuoteList />
       </HydrationBoundary>
-    </div>
+    </main>
   );
-};
-export default BookmarkedQuotes;
+}

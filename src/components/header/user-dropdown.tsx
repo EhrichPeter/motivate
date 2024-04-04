@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
-import { useToast } from "../ui/use-toast";
+import { toast } from "sonner";
 
 export type UserDropdownProps = {
   email: string | undefined;
@@ -20,21 +20,16 @@ export type UserDropdownProps = {
 
 export const UserDropdown = (props: UserDropdownProps) => {
   const { email } = props;
-  const { toast } = useToast();
 
   const handleLogout = async () => {
     try {
       await logout();
-      toast({
-        variant: "default",
-        title: "Logout successful!",
+      toast("Logout successful!", {
         description: "You have been logged out.",
       });
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: `${error}`,
+    } catch (error: any) {
+      toast("Something went wrong!", {
+        description: error,
       });
     }
   };

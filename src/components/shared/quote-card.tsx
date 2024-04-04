@@ -5,10 +5,10 @@ import { QuoteWithBookMark } from "@/server/quotes/models";
 import { BookmarkCheckIcon, BookmarkIcon } from "lucide-react";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { useToast } from "../ui/use-toast";
 import dayjs from "dayjs";
 import { Badge } from "../ui/badge";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 dayjs().format();
 
@@ -23,7 +23,6 @@ const QuoteCard = (props: QuoteWithBookMark) => {
     created_at,
     bookmarks,
   } = props;
-  const { toast } = useToast();
 
   const queryClient = useQueryClient();
   const { isPending, mutate } = useMutation({
@@ -31,34 +30,26 @@ const QuoteCard = (props: QuoteWithBookMark) => {
     mutationFn: () => toggleBookmark({ quote_id: id }),
     onSuccess: ({ data: new_state, serverError }) => {
       if (serverError) {
-        toast({
-          variant: "destructive",
-          title: "Head up!",
-          description: `${serverError}`,
+        toast("Almost there!", {
+          description: serverError,
         });
       } else {
         if (new_state) {
-          toast({
-            variant: "default",
-            title: "Bookmark set!",
+          toast("Bookmark set!", {
             description: "You have bookmarked this quote.",
           });
         } else {
-          toast({
-            variant: "default",
-            title: "Bookmark removed!",
-            description: "You have removed the bookmark from this quote.",
+          toast("Something went wrong!", {
+            description: "You have unbookmarked this quote",
           });
         }
         queryClient.invalidateQueries({ queryKey: ["quotes"] });
-        queryClient.invalidateQueries({ queryKey: ["bookmarksCount"] });
+        queryClient.invalidateQueries({ queryKey: ["latestQuote"] });
       }
     },
     onError: (error) => {
-      toast({
-        variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description: `${error.message}`,
+      toast("Something went wrong!", {
+        description: "This should never happen.",
       });
     },
   });
@@ -92,8 +83,10 @@ const QuoteCard = (props: QuoteWithBookMark) => {
       </div>
 
       <div className="flex gap-2 absolute bottom-4 left-4 text-sm">
-        <Badge>{dayjs(created_at).format("DD.MM.YYYY")}</Badge>
-        <Badge>
+        <Badge variant={"default"}>
+          {dayjs(created_at).format("DD.MM.YYYY")}
+        </Badge>
+        <Badge variant={"default"}>
           <BookmarkIcon size={10} /> {bookmarks.length}
         </Badge>
       </div>

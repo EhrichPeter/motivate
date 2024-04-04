@@ -1,7 +1,7 @@
 "use server";
 
 import { createClient } from "@/utils/supabase/server";
-import { PaginatedQuoteResponse } from "./models";
+import { PaginatedQuoteResponse, Quote, QuoteWithBookMark } from "./models";
 
 export async function findMany({
   limit = 5,
@@ -57,4 +57,27 @@ export const countBookmarkedQuotes = async () => {
   console.log(count);
 
   return count ?? 0;
+};
+
+export const findOneLatest = async (): Promise<QuoteWithBookMark> => {
+  const supabase = createClient();
+  const { user } = (await supabase.auth.getUser()).data;
+
+  const quote = await supabase
+    .from("quotes")
+    .select("*, bookmarks(*)")
+    .order("created_at", { ascending: false })
+    .limit(1)
+    .single();
+
+  if (quote.error) {
+    throw quote.error;
+  }
+
+  return {
+    ...quote.data,
+    bookmarked: user
+      ? quote.data.bookmarks.some((bookmark) => bookmark.user_id === user.id)
+      : false,
+  };
 };

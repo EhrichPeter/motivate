@@ -4,18 +4,37 @@ import { useGetQuotes } from "@/data/get-quotes";
 import { Button } from "../ui/button";
 import QuoteCard from "./quote-card";
 import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { QuoteWithBookMark } from "@/server/quotes/models";
 import { LoaderIcon } from "lucide-react";
-import NoQuotes from "../bookmarks/no-quotes";
+import { useSearchParams } from "next/navigation";
+import NoQuotes from "../library/no-quotes";
 
-const QuoteList = (props: { filterBookmarks: boolean }) => {
+const QuoteList = () => {
   const {
     data: quotePages,
     fetchNextPage,
     fetchStatus,
     hasNextPage,
+    isFetching,
   } = useGetQuotes();
+
+  const searchParams = useSearchParams();
+  const currentTag = searchParams.get("tag");
+
+  const filteredData = useMemo(() => {
+    if (currentTag && quotePages) {
+      return quotePages.pages.map((page) =>
+        page.data.filter((quote) => quote.bookmarked)
+      );
+    }
+
+    return quotePages?.pages.map((page) => page.data);
+  }, [currentTag, quotePages]);
+
+  useEffect(() => {
+    console.log(hasNextPage);
+  }, [hasNextPage]);
 
   const { ref, inView } = useInView();
 
@@ -25,21 +44,13 @@ const QuoteList = (props: { filterBookmarks: boolean }) => {
     }
   }, [inView, hasNextPage, fetchNextPage]);
 
-  const filterByBookmarks = (quote: QuoteWithBookMark) => {
-    return props.filterBookmarks ? quote.bookmarked : true;
-  };
-
-  const filtered = quotePages?.pages.map((page) =>
-    page.data.filter(filterByBookmarks)
-  );
-
-  if (!filtered || filtered[0].length === 0) {
+  if (!filteredData) {
     return <NoQuotes />;
   }
 
   return (
     <div className="flex flex-col items-center w-full gap-8">
-      {filtered.map((page) =>
+      {filteredData!.map((page) =>
         page.map((quote: QuoteWithBookMark) => (
           <QuoteCard key={quote.id} {...quote} />
         ))
