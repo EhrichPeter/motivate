@@ -27,7 +27,7 @@ export const Filter = () => {
   return (
     <div className="flex gap-4 w-full md:w-1/2">
       <Badge
-        className="cursor-pointer size-12"
+        className="cursor-pointer"
         variant={currentTag === null ? "default" : "outline"}
         onClick={() => setFilter()}
       >
